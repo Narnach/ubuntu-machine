@@ -23,18 +23,18 @@ namespace :utils do
 
   desc "Display passenger status information."
   task :passenger_status, :roles => :gateway do
-    sudo "/opt/ruby-enterprise/bin/passenger-status"
+    sudo "#{ruby_enterprise_path_prefix}/ruby-enterprise/bin/passenger-status"
   end
 
   desc "Display passenger memory usage information."
   task :passenger_memory, :roles => :gateway do
-    sudo "/opt/ruby-enterprise/bin/passenger-memory-stats"
+    sudo "#{ruby_enterprise_path_prefix}/ruby-enterprise/bin/passenger-memory-stats"
   end  
 
   desc "Activate Phusion Passenger Enterprise Edition."
   task :passenger_enterprise, :roles => :gateway do
 
-    sudo_and_watch_prompt("/opt/ruby-enterprise/bin/passenger-make-enterprisey", [/Key\:/,  /again\:/])    
+    sudo_and_watch_prompt("#{ruby_enterprise_path_prefix}/ruby-enterprise/bin/passenger-make-enterprisey", [/Key\:/,  /again\:/])
   end
   
 end

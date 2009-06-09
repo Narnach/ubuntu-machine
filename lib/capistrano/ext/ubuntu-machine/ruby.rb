@@ -20,6 +20,10 @@ namespace :ruby do
   set :ruby_enterprise_version do
     "#{ruby_enterprise_url[/(ruby-enterprise.*)(.tar.gz)/, 1]}"
   end
+
+  set :ruby_enterprise_path_prefix do
+    '/opt'
+  end
   
   set :passenger_version do
     `gem list passenger$ -r`.gsub(/[\n|\s|passenger|(|)]/,"")
@@ -31,19 +35,19 @@ namespace :ruby do
     sudo "apt-get install libssl-dev -y"
     sudo "apt-get install libreadline5-dev -y"
     
-    run "test ! -d /opt/#{ruby_enterprise_version}"
+    run "test ! -d #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}"
     run "wget #{ruby_enterprise_url}"
     run "tar xzvf #{ruby_enterprise_version}.tar.gz"
     run "rm #{ruby_enterprise_version}.tar.gz"
-    sudo "./#{ruby_enterprise_version}/installer --auto /opt/#{ruby_enterprise_version}"
+    sudo "./#{ruby_enterprise_version}/installer --auto #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}"
     sudo "rm -rf #{ruby_enterprise_version}/"
     
     # create a "permanent" link to the current REE install
-    sudo "ln -s /opt/#{ruby_enterprise_version} /opt/ruby-enterprise" 
+    sudo "ln -s #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version} #{ruby_enterprise_path_prefix}/ruby-enterprise" 
     
     # add REE bin to the path
     run "cat /etc/environment > ~/environment.tmp"
-    run 'echo PATH="/opt/ruby-enterprise/bin:$PATH" >> ~/environment.tmp'
+    run 'echo PATH="#{ruby_enterprise_path_prefix}/ruby-enterprise/bin:$PATH" >> ~/environment.tmp'
     sudo 'mv ~/environment.tmp /etc/environment'
   end
   
@@ -65,8 +69,8 @@ namespace :ruby do
   
   desc "Upgrade Phusion Passenger"
   task :upgrade_passenger, :roles => :app do
-    sudo "/opt/#{ruby_enterprise_version}/bin/ruby /opt/#{ruby_enterprise_version}/bin/gem install passenger"
-    run "sudo /opt/#{ruby_enterprise_version}/bin/ruby /opt/#{ruby_enterprise_version}/bin/passenger-install-apache2-module --auto"
+    sudo "#{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/ruby #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/gem install passenger"
+    run "sudo #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/ruby #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/passenger-install-apache2-module --auto"
 
     put render("passenger.load", binding), "/home/#{user}/passenger.load"
     put render("passenger.conf", binding), "/home/#{user}/passenger.conf"
