@@ -60,5 +60,14 @@ namespace :ssh do
     sudo "/etc/init.d/ssh reload"
   end
   
+  desc <<-DESC
+    Upload a default SSH config.
+  DESC
+  task :upload_ssh_config, :roles => :gateway do
+    run "mkdir -p ~/.ssh"
+    run "chown -R #{user}:#{user} ~/.ssh"
+    run "chmod 700 ~/.ssh"
+    put File.read(ssh_config), "./.ssh/config", :mode => 0600
+  end
   
 end
