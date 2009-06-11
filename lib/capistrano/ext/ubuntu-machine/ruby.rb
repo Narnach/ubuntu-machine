@@ -49,7 +49,7 @@ namespace :ruby do
     
     # add REE bin to the path
     run "cat /etc/environment > ~/environment.tmp"
-    run 'echo PATH="#{ruby_enterprise_path_prefix}/ruby-enterprise/bin:$PATH" >> ~/environment.tmp'
+    run 'echo PATH="%s/ruby-enterprise/bin:$PATH" >> ~/environment.tmp' % ruby_enterprise_path_prefix
     sudo 'mv ~/environment.tmp /etc/environment'
   end
   
