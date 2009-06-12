@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
                 "lib/capistrano/ext/ubuntu-machine/postfix.rb", 
                 "lib/capistrano/ext/ubuntu-machine/ruby.rb", 
                 "lib/capistrano/ext/ubuntu-machine/ssh.rb", 
+                "lib/capistrano/ext/ubuntu-machine/tmpfs.rb", 
                 "lib/capistrano/ext/ubuntu-machine/utils.rb", 
                 "lib/capistrano/ext/ubuntu-machine/vsftpd.rb", 
                 "lib/capistrano/ext/ubuntu-machine/templates/apache2.erb", 
