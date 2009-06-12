@@ -123,4 +123,13 @@ namespace :apache do
     sudo "a2enmod deflate"
     force_reload
   end
+
+  desc "Install mod-xsendfile"
+  task :install_mod_xsendfile, :roles => :web do
+    run "wget http://tn123.ath.cx/mod_xsendfile/mod_xsendfile-0.9.tar.gz -O mod_xsendfile-0.9.tar.gz"
+    run "tar -xzf mod_xsendfile-0.9.tar.gz"
+    sudo "mkdir -p /usr/local/src"
+    sudo "mv mod_xsendfile-0.9* /usr/local/src/"
+    sudo "apxs2 -cia /usr/local/src/mod_xsendfile-0.9/mod_xsendfile.c"
+  end
 end
