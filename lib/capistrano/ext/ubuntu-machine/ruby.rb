@@ -86,15 +86,10 @@ namespace :ruby do
 
   desc 'Make Ruby Enterprise and Rubygems Enterprise default'
   task :make_enterprise_default, :roles => :app do
-    sudo "rm /usr/bin/ruby"
-    sudo "ln -s #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ruby /usr/bin/ruby"
-    sudo "rm /usr/bin/ri"
-    sudo "ln -s #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ri1.8 /usr/bin/ri"
-    sudo "rm /usr/bin/rdoc"
-    sudo "ln -s #{ruby_enterprise_path_prefix}/ruby-enterprise/rdoc1.8 /usr/bin/rdoc"
-    sudo "rm /usr/bin/irb"
-    sudo "ln -s #{ruby_enterprise_path_prefix}/ruby-enterprise/irb1.8 /usr/bin/irb"
-    sudo "rm /usr/bin/gem"
-    sudo "ln -s #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/gem /usr/bin/gem"    
+    sudo "ln -fs #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ruby /usr/bin/ruby"
+    sudo "ln -fs #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ri1.8 /usr/bin/ri"
+    sudo "ln -fs #{ruby_enterprise_path_prefix}/ruby-enterprise/rdoc1.8 /usr/bin/rdoc"
+    sudo "ln -fs #{ruby_enterprise_path_prefix}/ruby-enterprise/irb1.8 /usr/bin/irb"
+    sudo "ln -fs #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/gem /usr/bin/gem"
   end
 end
