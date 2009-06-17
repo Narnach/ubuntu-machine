@@ -32,7 +32,7 @@ namespace :ruby do
   end
   
   set :passenger_version do
-    `gem list passenger$ -r`.gsub(/[\n|\s|passenger|(|)]/,"")
+    `gem list passenger$ -r`.gsub(/[\n|\s|passenger|(|)]/,"").split(',').first
   end
   
 
