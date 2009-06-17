@@ -1,6 +1,8 @@
-[<%= odbc_sourcename %>SERVER]
-Driver		= FreeTDS
+[<%= odbc_sourcename %>]
+Driver		  = FreeTDS
 Description	= ODBC Connection via FreeTDS
-Trace		= No
-Servername	= <%= odbc_sourcename %>
-Database	= <%= odbc_database %>
+Trace		    = No
+Server	    = <%= odbc_host %>
+Port        = <%= odbc_port %>
+TDS Version = <%= odbc_tds_version rescue '8.0' %>
+Database	  = <%= odbc_database %>

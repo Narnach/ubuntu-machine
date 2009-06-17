@@ -1,4 +1,8 @@
+[global]
+  tds version = 4.2
+  text size = 64512
+
 [<%= odbc_sourcename %>]
-	host = <%= odbc_host %>
-	port = 1433
-	tds version = 7.0
+#	host = <%= odbc_host %>
+#	port = <%= odbc_port %>
+	tds version = <%= odbc_tds_version rescue '8.0' %>
