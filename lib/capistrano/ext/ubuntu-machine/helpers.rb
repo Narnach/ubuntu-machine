@@ -33,4 +33,12 @@ def watch_prompt(ch, stream, data, regex_to_watch)
   end
 end
 
-
+# Adds 1 or more commands to the cron tab of root
+def sudo_add_to_crontab(commands,period)
+  tmp_cron="/tmp/tmp_cron"
+  sudo "rm -f #{tmp_cron} && crontab -l || true > #{tmp_cron}"
+  [*commands].each do |cmd|
+    run "echo '#{period} #{cmd}' >> #{tmp_cron}"
+  end
+  sudo "crontab #{tmp_cron}"
+end

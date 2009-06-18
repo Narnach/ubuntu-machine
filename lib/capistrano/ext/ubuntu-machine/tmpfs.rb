@@ -31,12 +31,6 @@ namespace :tmpfs do
       cron_commands << cmds.join(' && ')
       sudo "ln -s #{File.join(vsftpd_tmpfs_directory,target_user)} ~#{target_user}/ftp"
     end
-
-    tmp_cron="/tmp/tmp_cron"
-    sudo "rm -f #{tmp_cron} && crontab -l || true > #{tmp_cron}"
-    cron_commands.compact.each do |cmd|
-      run "echo '@reboot #{cmd}' >> #{tmp_cron}"
-    end
-    sudo "crontab #{tmp_cron}"
+    sudo_add_to_crontab(cron_commands.compact,'@reboot')
   end
 end
