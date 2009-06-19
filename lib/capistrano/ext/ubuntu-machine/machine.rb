@@ -34,6 +34,7 @@ namespace :machine do
     postfix.install
     gems.install_rubygems
     ruby.install_enterprise
+    ruby.make_enterprise_default
     ruby.install_passenger
     git.install
     php.install
