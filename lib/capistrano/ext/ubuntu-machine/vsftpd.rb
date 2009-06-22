@@ -3,7 +3,7 @@ namespace :vsftpd do
   set :vsftpd_group, 'ftpusers'
 
   desc "Install VSFTPd"
-  task :install, :roles => :app do
+  task :install do
     sudo "aptitude install -y vsftpd"
     configure
     add_nologin_shell
@@ -11,14 +11,14 @@ namespace :vsftpd do
   end
 
   desc "Install VSFTPd configuration file"
-  task :configure, :roles => :app do
+  task :configure do
     put render("vsftpd.conf", binding), "vsftpd.conf"
     sudo "mv vsftpd.conf /etc/vsftpd.conf"
     restart
   end
 
   desc "Add the :vsftpd_user_shell to /etc/shells"
-  task :add_nologin_shell, :roles => :app do
+  task :add_nologin_shell do
     puts "If this fails, then the '#{vsftpd_user_shell}'-shell is already in /etc/shells"
     run "test -z `grep #{vsftpd_user_shell} /etc/shells`"
     run "cp /etc/shells ~/shells.tmp"
@@ -27,7 +27,7 @@ namespace :vsftpd do
   end
 
   desc "Create VSFTPd-only users"
-  task :create_users, :roles => :app do
+  task :create_users do
     vsftpd_users.each do |user_to_create|
       sudo "groupadd -f #{vsftpd_group}"
       sudo "usermod -a -G #{vsftpd_group} #{user}"
@@ -38,17 +38,17 @@ namespace :vsftpd do
   end
 
   desc "Start the vsftpd server"
-  task :start, :roles => :app do
+  task :start do
     sudo "/etc/init.d/vsftpd start"
   end
 
   desc "Restart the vsftpd server"
-  task :restart, :roles => :app do
+  task :restart do
     sudo "/etc/init.d/vsftpd restart"
   end
 
   desc "Stop the vsftpd server"
-  task :stop, :roles => :app do
+  task :stop do
     sudo "/etc/init.d/vsftpd stop"
   end
 end

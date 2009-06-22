@@ -4,13 +4,13 @@ namespace :ntp do
   set :ntp_server_pool, "nl.pool.ntp.org"
 
   desc "Install NTP"
-  task :install, :roles => :app do
+  task :install do
     sudo "aptitude install -y ntp"
     configure
   end
 
   desc "Configure NTP"
-  task :configure, :roles => :app do
+  task :configure do
     put render("ntpdate", binding), "ntpdate"
     sudo "mv ntpdate /etc/default/ntpdate"
     put render("ntp.conf", binding), "ntp.conf"
@@ -21,17 +21,17 @@ namespace :ntp do
   end
 
   desc "Start the NTP server"
-  task :start, :roles => :app do
+  task :start do
     sudo "/etc/init.d/ntp start"
   end
 
   desc "Restart the NTP server"
-  task :restart, :roles => :app do
+  task :restart do
     sudo "/etc/init.d/ntp restart"
   end
 
   desc "Stop the NTP server"
-  task :stop, :roles => :app do
+  task :stop do
     sudo "/etc/init.d/ntp stop"
   end
 end

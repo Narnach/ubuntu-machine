@@ -1,7 +1,7 @@
 require 'yaml'
 namespace :lmsensors do
   desc "Install lmsensors"
-  task :install, :roles => :app do
+  task :install do
     sudo "aptitude install -y lm-sensors"
     to_probe = []
     sudo "sensors-detect", :pty => true do |ch, stream, data|
