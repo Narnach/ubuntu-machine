@@ -36,5 +36,11 @@ namespace :utils do
 
     sudo_and_watch_prompt("#{ruby_enterprise_path_prefix}/ruby-enterprise/bin/passenger-make-enterprisey", [/Key\:/,  /again\:/])
   end
-  
+
+  desc "Force fsck to check the disk at every boot."
+  task :force_fsck_at_every_boot, :roles => :gateway do
+    run "df"
+    partition = Capistrano::CLI.ui.ask("Which partition do you want to run a filesystem check on, on every boot? ")
+    sudo "tune2fs -c 1 #{partition}"
+  end
 end
