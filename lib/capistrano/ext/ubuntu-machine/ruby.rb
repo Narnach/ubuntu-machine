@@ -75,8 +75,8 @@ namespace :ruby do
   
   desc "Upgrade Phusion Passenger"
   task :upgrade_passenger, :roles => :app do
-    sudo "#{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/ruby #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/gem install passenger"
-    run "sudo #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/ruby #{ruby_enterprise_path_prefix}/#{ruby_enterprise_version}/bin/passenger-install-apache2-module --auto"
+    sudo "#{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ruby #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/gem install passenger"
+    run "sudo #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/ruby #{ruby_enterprise_path_prefix}/ruby-enterprise/bin/passenger-install-apache2-module --auto"
 
     put render("passenger.load", binding), "/home/#{user}/passenger.load"
     put render("passenger.conf", binding), "/home/#{user}/passenger.conf"
