@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
                 "lib/capistrano/ext/ubuntu-machine/machine.rb", 
                 "lib/capistrano/ext/ubuntu-machine/mysql.rb", 
                 "lib/capistrano/ext/ubuntu-machine/network.rb",
+                "lib/capistrano/ext/ubuntu-machine/nanite.rb",
                 "lib/capistrano/ext/ubuntu-machine/ntp.rb",
                 "lib/capistrano/ext/ubuntu-machine/php.rb", 
                 "lib/capistrano/ext/ubuntu-machine/postfix.rb", 
